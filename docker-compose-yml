@@ -1,0 +1,40 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: root
+      MYSQL_USER: product
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    restart: always
+    command: ["redis-server", "--appendonly", "yes"]  # 开启AOF持久化
+    volumes:
+      - redis_data:/data
+
+  go-backend:
+    build: ./  # 假设您的Go项目位于本地的go-backend目录
+    restart: always
+    ports:
+      - "8080:8080"  # 将容器内的8080端口映射到主机的8080端口
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: product
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+volumes:
+  mysql_data:
+  redis_data:
