@@ -2,11 +2,13 @@ package main
 
 import (
 	"product.com/m/database"
+	"product.com/m/redisModule"
 	"product.com/m/server"
 )
 
 func init() {
 	database.InitDatabase()
+	redisModule.InitRedis()
 }
 
 func main() {

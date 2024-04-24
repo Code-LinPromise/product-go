@@ -31,4 +31,5 @@ func MigrateDB() {
 	DB.AutoMigrate(MigrateVideo())
 	DB.AutoMigrate(MigratePhone())
 	DB.AutoMigrate(MigrateKindImage())
+	DB.AutoMigrate(MigrateUser(), MigrateLiked())
 }

@@ -27,6 +27,13 @@ func SetupRouter() *gin.Engine {
 		authApi.GET("/get_phone", controller.GetPhoneController)
 		authApi.POST("/upload_kindimg", controller.UploadKindImgController)
 		authApi.GET("/get_kindimg", controller.GetKindImgController)
+
+	}
+	authCApi := r.Group("/api/v1/c/auth")
+	authCApi.Use(middleware.JWT())
+	{
+		authApi.POST("/upload_liked", controller.CUploadLikedController)
+		authApi.GET("/get_liked", controller.CGetLikedController)
 	}
 	r.POST("api/v1/admin_login", controller.AdminLoginController)
 	r.GET("api/v1/c/get_kind_info", controller.CGetKindImgController)
@@ -35,6 +42,6 @@ func SetupRouter() *gin.Engine {
 	r.GET("api/v1/c/get_video", controller.CGetVideoController)
 	r.GET("api/v1/c/get_phone", controller.CGetPhoneController)
 	r.POST("api/v1/c/search_product", controller.CSearchProductController)
-	r.GET("api/v1/c/login", controller.CLoginController)
+	r.POST("api/v1/c/login", controller.CLoginController)
 	return r
 }
