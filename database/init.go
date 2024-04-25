@@ -12,7 +12,7 @@ var DB *gorm.DB
 func InitDatabase() {
 	username := "root"
 	password := "123456"
-	host := "172.21.80.1"
+	host := "47.121.29.252"
 	port := 3306
 	DBname := "product"
 	timeout := "10s"
