@@ -11,8 +11,8 @@ import (
 )
 
 type WaterMarkType struct {
-	TimeStamp int    `timestamp`
-	AppId     string `appid`
+	TimeStamp int    `json:"timestamp"`
+	AppId     string `json:"appid"`
 }
 type PhoneInfoType struct {
 	PhoneNumber     string        `json:"phoneNumber"`
