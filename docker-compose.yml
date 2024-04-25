@@ -1,40 +1,31 @@
-version: '3'
+version: '3.8'
 services:
-  mysql:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: root
-      MYSQL_USER: product
-      MYSQL_PASSWORD: 123456
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-  redis:
-    image: redis:latest
-    restart: always
-    command: ["redis-server", "--appendonly", "yes"]  # 开启AOF持久化
-    volumes:
-      - redis_data:/data
-
-  go-backend:
-    build: ./  # 假设您的Go项目位于本地的go-backend目录
-    restart: always
-    ports:
-      - "8080:8080"  # 将容器内的8080端口映射到主机的8080端口
+  go-app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
     depends_on:
-      - mysql
-      - redis
+      - mysql-container
+      - redis-container
+    ports:
+      - 8080:8080
+    networks:
+      - common-network
+  mysql-container:
+    image: mysql
+    volumes:
+      - /Users/guang/mysql-data:/var/lib/mysql
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: product
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-
-volumes:
-  mysql_data:
-  redis_data:
+      MYSQL_DATABASE: meeting_room_booking_system
+      MYSQL_ROOT_PASSWORD: guang
+    networks:
+      - common-network
+  redis-container:
+    image: redis
+    volumes:
+      - /Users/guang/redis-data:/data
+    networks:
+      - common-network
+networks:
+  common-network:
+    driver: bridge
