@@ -1,9 +1,8 @@
 version: '3.8'
 services:
   go-app:
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
+    image: 
+      - registry.cn-chengdu.aliyuncs.com/1in/go-product:latest
     depends_on:
       - mysql-container
       - redis-container
