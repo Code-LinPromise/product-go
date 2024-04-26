@@ -1,8 +1,7 @@
 version: '3.8'
 services:
   go-app:
-    image: 
-      - registry.cn-chengdu.aliyuncs.com/1in/go-product:latest
+    image: registry.cn-chengdu.aliyuncs.com/1in/go-product:latest
     depends_on:
       - mysql-container
       - redis-container
