@@ -21,9 +21,9 @@ services:
     networks:
       - common-network
   redis-container:
-  ports:
-      - 6379:6379
     image: redis
+    ports:
+      - 6379:6379
     volumes:
       - /Users/product/redis-data:/data
     networks:
