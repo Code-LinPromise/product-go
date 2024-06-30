@@ -8,8 +8,9 @@ import (
 )
 
 func CGetKindImgController(c *gin.Context) {
-	var KIND = [...]string{"实木楼梯",
+	var KIND = [...]string{
 		"本月爆款产品",
+		"实木楼梯",
 		"玻璃楼梯",
 		"金属楼梯",
 		"水泥楼梯",
@@ -20,8 +21,11 @@ func CGetKindImgController(c *gin.Context) {
 		"实木护栏",
 		"铝合金庭院门",
 		"阳台护栏",
-		"庭院围栏",
-		"车库门"}
+		"屏风隔断",
+		"车库门",
+		"阁楼梯",
+		"电梯",
+	}
 	var kindImg []database.KindImg
 	err := database.DB.Where("now_kind_img=?", 1).Find(&kindImg).Error
 	if err != nil {

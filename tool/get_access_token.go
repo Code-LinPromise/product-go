@@ -35,5 +35,6 @@ func GetAccessToken() string {
 	if err != nil {
 		log.Fatalf("Error unmarshaling response body: %v", err)
 	}
+	fmt.Println("response", responseData.Access_Token)
 	return responseData.Access_Token
 }

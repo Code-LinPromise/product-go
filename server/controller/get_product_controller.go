@@ -35,5 +35,12 @@ func GetProductController(c *gin.Context) {
 
 	// 执行分页查询
 	db.Limit(body.PageSize).Offset(offset).Find(&ProductList)
-	c.JSON(http.StatusOK, gin.H{"msg": "请求成功", "data": ProductList})
+	for i, value := range ProductList {
+		var ProductDetail []database.ProdctDetailsImage
+		database.DB.Where("product_id=?", value.ID).Find(&ProductDetail)
+		ProductList[i].ProdctDetails = ProductDetail
+	}
+	var product_count int64
+	database.DB.Model(&database.Product{}).Count(&product_count)
+	c.JSON(http.StatusOK, gin.H{"msg": "请求成功", "data": ProductList, "total": product_count})
 }

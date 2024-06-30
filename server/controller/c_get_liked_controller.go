@@ -12,6 +12,7 @@ func CGetLikedController(c *gin.Context) {
 	claims := c.MustGet("token").(*tool.Claims)
 	if claims == nil {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": "用户凭证不正确"})
+		return
 	}
 	user_phone := claims.Username
 	var user database.User
